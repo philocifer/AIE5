@@ -13,10 +13,18 @@ def cosine_similarity(vector_a: np.array, vector_b: np.array) -> float:
     return dot_product / (norm_a * norm_b)
 
 
+def negative_euclidean_distance(vector_a: np.array, vector_b: np.array) -> float:
+    """Computes the negative Euclidean distance between two vectors.
+    Returns negative distance so that closer vectors get higher scores,
+    maintaining consistency with cosine similarity scoring."""
+    return -np.linalg.norm(vector_a - vector_b)
+
+
 class VectorDatabase:
-    def __init__(self, embedding_model: EmbeddingModel = None):
+    def __init__(self, embedding_model: EmbeddingModel = None, distance_measure: Callable = cosine_similarity):
         self.vectors = defaultdict(np.array)
         self.embedding_model = embedding_model or EmbeddingModel()
+        self.distance_measure = distance_measure
 
     def insert(self, key: str, vector: np.array) -> None:
         self.vectors[key] = vector
@@ -25,10 +33,11 @@ class VectorDatabase:
         self,
         query_vector: np.array,
         k: int,
-        distance_measure: Callable = cosine_similarity,
+        distance_measure: Callable = None,
     ) -> List[Tuple[str, float]]:
+        distance_fn = distance_measure or self.distance_measure
         scores = [
-            (key, distance_measure(query_vector, vector))
+            (key, distance_fn(query_vector, vector))
             for key, vector in self.vectors.items()
         ]
         return sorted(scores, key=lambda x: x[1], reverse=True)[:k]
@@ -37,7 +46,7 @@ class VectorDatabase:
         self,
         query_text: str,
         k: int,
-        distance_measure: Callable = cosine_similarity,
+        distance_measure: Callable = None,
         return_as_text: bool = False,
     ) -> List[Tuple[str, float]]:
         query_vector = self.embedding_model.get_embedding(query_text)
@@ -63,19 +72,38 @@ if __name__ == "__main__":
         "Look at this cute hamster munching on a piece of broccoli.",
     ]
 
-    vector_db = VectorDatabase()
-    vector_db = asyncio.run(vector_db.abuild_from_list(list_of_text))
+    # Create two vector databases with different distance measures
+    vector_db_cosine = VectorDatabase(distance_measure=cosine_similarity)
+    vector_db_euclidean = VectorDatabase(distance_measure=negative_euclidean_distance)
+    
+    # Build both databases
+    vector_db_cosine = asyncio.run(vector_db_cosine.abuild_from_list(list_of_text))
+    vector_db_euclidean = asyncio.run(vector_db_euclidean.abuild_from_list(list_of_text))
+    
     k = 2
+    query = "I think fruit is awesome!"
 
-    searched_vector = vector_db.search_by_text("I think fruit is awesome!", k=k)
-    print(f"Closest {k} vector(s):", searched_vector)
+    # Search using default distance measures
+    searched_vector_cosine = vector_db_cosine.search_by_text(query, k=k)
+    print(f"Closest {k} vectors (cosine similarity):", searched_vector_cosine)
 
-    retrieved_vector = vector_db.retrieve_from_key(
+    searched_vector_euclidean = vector_db_euclidean.search_by_text(query, k=k)
+    print(f"Closest {k} vectors (Euclidean distance):", searched_vector_euclidean)
+
+    # Example of overriding the default distance measure
+    searched_vector_override = vector_db_cosine.search_by_text(
+        query, 
+        k=k, 
+        distance_measure=negative_euclidean_distance
+    )
+    print(f"Closest {k} vectors (override with Euclidean):", searched_vector_override)
+
+    retrieved_vector = vector_db_cosine.retrieve_from_key(
         "I like to eat broccoli and bananas."
     )
     print("Retrieved vector:", retrieved_vector)
 
-    relevant_texts = vector_db.search_by_text(
-        "I think fruit is awesome!", k=k, return_as_text=True
+    relevant_texts = vector_db_cosine.search_by_text(
+        query, k=k, return_as_text=True
     )
     print(f"Closest {k} text(s):", relevant_texts)
