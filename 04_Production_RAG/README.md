@@ -7,7 +7,8 @@
 
 | 🤓 Pre-work | 📰 Session Sheet | ⏺️ Recording     | 🖼️ Slides        | 👨‍💻 Repo         | 📝 Homework      | 📁 Feedback       |
 |:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|:-----------------|
-| [Session 4: Pre-Work](https://www.notion.so/Session-4-RAG-and-Evaluation-with-LangChain-LangSmith-17bcd547af3d805aa734d01fce1a057e?pvs=4#183cd547af3d8048a602eb915836bef9)| [Session 4: RAG and Evaluation with LangChain & LangSmith](https://www.notion.so/Session-4-RAG-and-Evaluation-with-LangChain-LangSmith-17bcd547af3d805aa734d01fce1a057e) | Coming Soon! | Coming Soon! | You are here! | Coming Soon! | [AIE5 Feedback 1/23](https://forms.gle/pzwREd3RVRgp6D4q9) |
+| [Session 4: Pre-Work](https://www.notion.so/Session-4-RAG-and-Evaluation-with-LangChain-LangSmith-17bcd547af3d805aa734d01fce1a057e?pvs=4#183cd547af3d8048a602eb915836bef9)| [Session 4: RAG and Evaluation with LangChain & LangSmith](https://www.notion.so/Session-4-RAG-and-Evaluation-with-LangChain-LangSmith-17bcd547af3d805aa734d01fce1a057e) | [Recording](https://us02web.zoom.us/rec/share/K3JiMwGgEmwt9a1NMJ-NDSPEm8OkTbMNVvd0EtiqvYI2lsCjtlxJHree_lJ_pkf1.seCwf2ZRyF0ru0Rb) (?Bc!DC6g)  | [Session 4: RAG with LangChain](https://www.canva.com/design/DAGcIXWQbdg/_h_4Y8AQIB9R5Kl9HmG8xQ/edit?utm_content=DAGcIXWQbdg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton) | You Are Here! | [Session 4: RAG with LangChain](https://docs.google.com/forms/d/e/1FAIpQLSeaJqV4RduOdgbUtBPDv63Yk-8HhlHf-C6yWHL4O9rcNDcAgQ/viewform?usp=sharing) | [AIE5 Feedback 1/23](https://forms.gle/pzwREd3RVRgp6D4q9) |
+
 
 # Build 🏗️
 
