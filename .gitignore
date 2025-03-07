@@ -174,3 +174,4 @@ cython_debug/
 .pypirc
 16_LLMOps/deep_research/.env
 .git-rewrite/
+15_Open_Source_Endpoints/paul-graham-to-kindle/
